@@ -24,4 +24,4 @@
    here is required for the site to work.
 --------------------------------------------------------- */
 const SUPABASE_URL = "https://nyoubqpafeewoqpfedqc.supabase.co";       // e.g. "https://xyzcompany.supabase.co"
-const SUPABASE_ANON_KEY = "sb_secret_NzUITvM5WZ-2dW8MtvrdVw_i7zcsCBg";  // the public anon/publishable key, not service_role
+const SUPABASE_ANON_KEY = "sb_publishable_zw_bkSMjxjsu9GpcIvNJ6g_67Ig5abT";  // the public anon/publishable key, not service_role
