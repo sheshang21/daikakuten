@@ -12,7 +12,7 @@
 
 services:
   - type: web
-    name: daikokuten
+    name: tekisei
     runtime: static
     buildCommand: ""
     staticPublishPath: .
