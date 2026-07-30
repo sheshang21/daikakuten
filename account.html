@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account — Daikokuten</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%23E8A61F' stroke='%23B5790F' stroke-width='2'/%3E%3Crect x='15' y='15' width='10' height='10' fill='%23FFF6E6' transform='rotate(45 20 20)'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="paper-bg">
+
+<header class="dash-bar">
+  <div class="container">
+    <a href="index.html" class="brand" style="font-size:1.2rem;">
+      <svg class="brand-mark" viewBox="0 0 40 40" style="width:28px;height:28px;"><circle cx="20" cy="20" r="18" fill="#E8A61F" stroke="#B5790F" stroke-width="2"/><rect x="15" y="15" width="10" height="10" fill="#FFF6E6" transform="rotate(45 20 20)"/></svg>
+      Daikokuten
+    </a>
+    <div class="dash-stats" data-dash-stats></div>
+  </div>
+</header>
+
+<main class="account-wrap">
+
+  <div class="account-panel" id="notConfiguredPanel" style="display:none;">
+    <h1>Accounts aren't set up yet</h1>
+    <p class="sub">
+      This site currently keeps progress on this device only. To turn on
+      accounts and cross-device sync, fill in <code>js/supabase-config.js</code>
+      with a Supabase project URL and anon key (see the comments in that
+      file and <code>docs/supabase-schema.sql</code>).
+    </p>
+    <a href="learn.html" class="btn btn-ghost btn-block">Back to The Path</a>
+  </div>
+
+  <div class="account-panel" id="signedOutPanel" style="display:none;">
+    <h1>Save your progress</h1>
+    <p class="sub">Sign in to keep your merit, coins, and streak synced across devices. Your local progress on this device stays put either way.</p>
+
+    <div class="account-tabs">
+      <button type="button" class="account-tab active" id="tabSignIn">Sign in</button>
+      <button type="button" class="account-tab" id="tabSignUp">Sign up</button>
+    </div>
+
+    <form id="authForm">
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" required autocomplete="email">
+      </div>
+      <div class="field" id="passwordField">
+        <label for="password">Password</label>
+        <input type="password" id="password" required autocomplete="current-password" minlength="6">
+      </div>
+      <button type="submit" class="btn btn-vermilion btn-block" id="submitBtn">Sign in</button>
+    </form>
+    <button type="button" class="btn btn-ghost btn-block" id="magicLinkBtn" style="margin-top:10px;">Email me a sign-in link instead</button>
+
+    <div class="account-msg" id="msg" style="display:none;"></div>
+  </div>
+
+  <div class="account-panel account-signedin" id="signedInPanel" style="display:none;">
+    <h1>You're signed in</h1>
+    <p class="sub" id="signedInEmail"></p>
+    <p class="sub">Your progress on this device is kept in sync with your account automatically.</p>
+    <div class="sync-status" id="syncStatus">Sync status: idle</div>
+    <button type="button" class="btn btn-ghost btn-block" id="signOutBtn" style="margin-top:20px;">Sign out</button>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p class="footer-note">Daikokuten · a playful way into valuation and statistics. Educational content only — not investment advice.</p>
+    <div class="footer-links"><a href="index.html">About</a></div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/sync.js"></script>
+<script>
+  renderDashStats(loadState());
+
+  const notConfiguredPanel = document.getElementById('notConfiguredPanel');
+  const signedOutPanel = document.getElementById('signedOutPanel');
+  const signedInPanel = document.getElementById('signedInPanel');
+  const msg = document.getElementById('msg');
+  const authForm = document.getElementById('authForm');
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+  const passwordField = document.getElementById('passwordField');
+  const submitBtn = document.getElementById('submitBtn');
+  const tabSignIn = document.getElementById('tabSignIn');
+  const tabSignUp = document.getElementById('tabSignUp');
+  const magicLinkBtn = document.getElementById('magicLinkBtn');
+  const signOutBtn = document.getElementById('signOutBtn');
+  const syncStatusEl = document.getElementById('syncStatus');
+  const signedInEmail = document.getElementById('signedInEmail');
+
+  let mode = 'signin'; // 'signin' | 'signup'
+
+  function showMsg(text, ok){
+    msg.textContent = text;
+    msg.className = 'account-msg ' + (ok ? 'ok' : 'err');
+    msg.style.display = 'block';
+  }
+
+  function setMode(next){
+    mode = next;
+    tabSignIn.classList.toggle('active', mode === 'signin');
+    tabSignUp.classList.toggle('active', mode === 'signup');
+    submitBtn.textContent = mode === 'signin' ? 'Sign in' : 'Sign up';
+  }
+  tabSignIn.addEventListener('click', () => setMode('signin'));
+  tabSignUp.addEventListener('click', () => setMode('signup'));
+
+  authForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    msg.style.display = 'none';
+    try{
+      if(mode === 'signin'){
+        const { error } = await Auth.signIn(emailInput.value.trim(), passwordInput.value);
+        if(error) throw error;
+      }else{
+        const { error } = await Auth.signUp(emailInput.value.trim(), passwordInput.value);
+        if(error) throw error;
+        showMsg('Account created — check your email if confirmation is required, then sign in.', true);
+      }
+    }catch(err){
+      showMsg(err.message || 'Something went wrong.', false);
+    }finally{
+      submitBtn.disabled = false;
+    }
+  });
+
+  magicLinkBtn.addEventListener('click', async () => {
+    if(!emailInput.value.trim()){ showMsg('Enter your email above first.', false); return; }
+    msg.style.display = 'none';
+    try{
+      const { error } = await Auth.signInWithMagicLink(emailInput.value.trim());
+      if(error) throw error;
+      showMsg('Check your email for a sign-in link.', true);
+    }catch(err){
+      showMsg(err.message || 'Something went wrong.', false);
+    }
+  });
+
+  signOutBtn.addEventListener('click', async () => {
+    signOutBtn.disabled = true;
+    await DaikokutenSync.flush();
+    await Auth.signOut();
+    signOutBtn.disabled = false;
+  });
+
+  window.addEventListener('daikokuten:syncstatus', (e) => {
+    syncStatusEl.textContent = 'Sync status: ' + e.detail;
+  });
+  window.addEventListener('daikokuten:synced', () => {
+    renderDashStats(loadState());
+  });
+
+  Auth.onChange((user) => {
+    notConfiguredPanel.style.display = Auth.configured ? 'none' : 'block';
+    signedOutPanel.style.display = (Auth.configured && !user) ? 'block' : 'none';
+    signedInPanel.style.display = (Auth.configured && user) ? 'block' : 'none';
+    if(user) signedInEmail.textContent = user.email;
+  });
+</script>
+</body>
+</html>

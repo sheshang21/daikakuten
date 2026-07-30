@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Path — Daikokuten</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%23E8A61F' stroke='%23B5790F' stroke-width='2'/%3E%3Crect x='15' y='15' width='10' height='10' fill='%23FFF6E6' transform='rotate(45 20 20)'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="paper-bg">
+
+<header class="dash-bar">
+  <div class="container">
+    <a href="index.html" class="brand" style="font-size:1.2rem;">
+      <svg class="brand-mark" viewBox="0 0 40 40" style="width:28px;height:28px;"><circle cx="20" cy="20" r="18" fill="#E8A61F" stroke="#B5790F" stroke-width="2"/><rect x="15" y="15" width="10" height="10" fill="#FFF6E6" transform="rotate(45 20 20)"/></svg>
+      Daikokuten
+    </a>
+    <div class="dash-stats" data-dash-stats></div>
+    <a href="account.html" class="btn btn-ghost" style="padding:8px 16px;font-size:0.82rem;">Account</a>
+  </div>
+</header>
+
+<main class="path-wrap">
+  <div class="container" id="pathRoot"></div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p class="footer-note">Daikokuten · a playful way into valuation and statistics. Educational content only — not investment advice.</p>
+    <div class="footer-links"><a href="index.html">About</a></div>
+  </div>
+</footer>
+
+<script src="js/lesson-data.js"></script>
+<script src="js/sheets-config.js"></script>
+<script src="js/sheets-loader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/sync.js"></script>
+<script src="js/path.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+# Render Blueprint — daikokuten
+# The whole site is static HTML/CSS/JS (no build step, no server, no env
+# vars). Content comes from js/lesson-data.js at rest, optionally overlaid at
+# runtime by CSV_URLS in js/sheets-config.js — both are just files fetched
+# by the browser, so nothing here needs to know about them.
+#
+# Deploy: push this repo to GitHub/GitLab, then in Render:
+#   New -> Blueprint -> pick this repo -> Apply.
+# Render reads this file and creates the static site automatically.
+# (Manual alternative, no Blueprint: New -> Static Site -> Build Command
+# blank -> Publish Directory ".")
+
+services:
+  - type: web
+    name: daikokuten
+    runtime: static
+    plan: free
+    buildCommand: ""
+    staticPublishPath: .
+    pullRequestPreviewsEnabled: false
+    domains: []
+    headers:
+      # Long-cache the fingerprint-free static assets. If you ever start
+      # hashing filenames on deploy, this is the block to loosen.
+      - path: /css/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /js/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      # HTML stays revalidated so unit unlocks / new lessons show up on
+      # next visit without anyone needing to hard-refresh.
+      - path: /*.html
+        name: Cache-Control
+        value: public, max-age=0, must-revalidate
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+    routes:
+      # Direct file matches (index.html, learn.html, lesson.html, css/js)
+      # are served as-is by Render before routes are even consulted.
+      # This only catches genuinely missing paths, so it plays nice with
+      # multi-page navigation instead of forcing an SPA-style fallback.
+      - type: rewrite
+        source: /*
+        destination: /404.html
