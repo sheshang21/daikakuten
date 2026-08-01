@@ -1,177 +1,358 @@
 # Tekisei — the 1000-lesson roadmap
 
-100 units × 10 lessons. Unit 1 is fully built (teach cards + questions, live
-in `js/lesson-data.js` and `sheets-templates/u1-*.csv`). Units 2–10 are
-scaffolded (name, description, guide, unlock order all wired into the app)
-but empty — titles below are the plan for filling them in, one unit at a
-time, the same "slowly, slowly" way Unit 1 was built.
+100 units × 10 lessons, organized into 10 ten-unit "books" that take a learner from what value even means through to a full sell-side-style valuation and deal toolkit. Unit 1 is fully built (teach cards + questions, live in `js/lesson-data.js` and `sheets-templates/u1-the-basics-of-value.csv`). Every other unit is scaffolded — id, name, description, guide, and unlock order are all wired into the app — but empty, ready to be filled in one unit at a time, the same "slowly, slowly" way Unit 1 was built.
 
-Units 11–100 exist in `js/lesson-data.js` and `js/sheets-config.js` as
-reserved slots (id, a placeholder name, `locked: true`, and a guide already
-assigned) so the app and the roster on `index.html` work at full scale —
-but their actual titles and lessons haven't been planned yet. Plan and
-build them in batches of 10, the same way as Units 1–10 below: pick a
-theme for the batch, write ten lesson titles, then fill in one unit's
-`sheets-templates/u{N}-....csv` at a time.
-
-Each unit is guided by one deity from the roster; with 100 units the six
-guides now each cover a contiguous block instead of just one or two units
-— see the `roster-tag` ranges in `index.html` for the current split
-(editable there any time the plan changes).
+Content for a unit can live either directly in `js/lesson-data.js` or in a CSV file referenced from `js/sheets-config.js` (a repo file path or a published Google Sheet both work identically) — see `docs/content-pipeline.md` for the full workflow. u2–u10 already have correctly-named empty CSV templates waiting in `sheets-templates/`; units beyond u10 don't have a template file yet — create one when you're ready to plan that unit.
 
 ---
 
-### Unit 1 — The Basics of Value · guide: Daikokuten · 🟢 LIVE
-1. What Is Value?
-2. Price vs. Value
-3. The Time Value of Money
-4. Reading a Balance Sheet
-5. Three Ways to Value a Business
-6. Growth vs. Value
-7. Risk and Return
-8. What Makes Cash Flow "Free"?
-9. The P/E Ratio
-10. Reading an Income Statement
+## Book I — Foundations of Value & Financial Statements · guide: Daikokuten
 
-### Unit 2 — Statistics I: Describing Data · guide: Plutus
-1. Why Statistics Matters in Investing
-2. Mean, Median, and Mode
-3. Spotting an Outlier
-4. Measuring Spread: Range and Variance
-5. Standard Deviation, Demystified
-6. What a Normal Distribution Looks Like
-7. Skew: When Data Leans
-8. Correlation: Do Two Things Move Together?
-9. Correlation Is Not Causation
-10. Sample vs. Population
+**Unit 1 — The Basics of Value**  🟢 LIVE (10 lessons built)  
+What value actually means, and why price isn't it.
 
-### Unit 3 — Statistics II: Probability & Risk · guide: Plutus
-1. What Is Probability, Really?
-2. Independent vs. Dependent Events
-3. Expected Value
-4. Risk vs. Uncertainty
-5. Diversification and Variance
-6. The Bell Curve of Stock Returns
-7. Volatility as a Risk Measure
-8. Beta: Measuring Market Sensitivity
-9. Base Rates and Why They're Ignored
-10. Common Statistical Traps in Investing
+**Unit 2 — Markets, Prices & Participants**  
+Who trades, why prices move, and what a market actually is.
 
-### Unit 4 — Reading Financial Statements · guide: Ebisu
-1. The Three Statements, at a Glance
-2. Revenue: Where the Story Starts
-3. Cost of Goods Sold and Gross Margin
-4. Operating Expenses and Operating Profit
-5. Net Profit and the Bottom Line
-6. The Cash Flow Statement, Simply
-7. Why Profit and Cash Aren't the Same
-8. Depreciation and Amortization
-9. Working Capital, Explained
-10. Red Flags in a Financial Statement
+**Unit 3 — The Time Value of Money**  
+Present value, future value, and why a rupee today beats a rupee later.
 
-### Unit 5 — Comparables & Multiples · guide: Kubera
-1. What Is a "Comparable" Company?
-2. The P/E Ratio, Revisited
-3. EV/EBITDA, Unpacked
-4. Price-to-Book Ratio
-5. Price-to-Sales Ratio
-6. Choosing the Right Peer Group
-7. Why Multiples Can Mislead
-8. Growth-Adjusted Multiples (PEG)
-9. Building a Comps Table
-10. From Multiples to a Value Estimate
+**Unit 4 — Reading a Balance Sheet**  
+Assets, liabilities, and equity — a snapshot of what a company owns and owes.
 
-### Unit 6 — Discounted Cash Flow Foundations · guide: Kubera
-1. Free Cash Flow, Defined
-2. Forecasting Revenue Growth
-3. Projecting Margins Forward
-4. What Is a Discount Rate, Really?
-5. WACC: Blending the Cost of Capital
-6. The Terminal Value Problem
-7. Putting Together a Simple DCF
-8. Sensitivity: What If You're Wrong?
-9. DCF vs. Multiples: Strengths and Weak Spots
-10. When a DCF Should Be Ignored
+**Unit 5 — Reading an Income Statement**  
+Revenue down to net profit, one line at a time.
 
-### Unit 7 — Small Business & Rule-of-Thumb Valuation · guide: Ebisu
-1. Why Small Businesses Value Differently
-2. Seller's Discretionary Earnings
-3. Industry Rules of Thumb
-4. Valuing a Business With No Formal Books
-5. Family Business Complications
-6. Buy-Sell Agreements, Explained
-7. Valuing for Divorce, Estate, or Exit
-8. Goodwill in a Small Business
-9. Discounts for Lack of Marketability
-10. A Practical Small-Business Valuation Walkthrough
+**Unit 6 — Reading a Cash Flow Statement**  
+Why profit and cash aren't the same, and where the difference hides.
 
-### Unit 8 — Deals, Mergers & Acquisitions · guide: Hermes
-1. Why Companies Buy Other Companies
-2. Strategic vs. Financial Buyers
-3. The M&A Process, Step by Step
-4. Synergies: Real and Imagined
-5. Premiums Paid in Acquisitions
-6. Due Diligence, Explained Simply
-7. How Deals Get Financed
-8. Earnouts and Deferred Payments
-9. When Mergers Fail
-10. Reading a Real Deal Announcement
+**Unit 7 — Linking the Three Statements**  
+How the balance sheet, income statement, and cash flow statement connect.
 
-### Unit 9 — IPOs & Capital Markets · guide: Hermes
-1. Why Companies Go Public
-2. The IPO Process, Step by Step
-3. Underwriters and Their Role
-4. Pricing an IPO
-5. IPO Pop: Why It Happens
-6. Lock-Up Periods, Explained
-7. Direct Listings vs. Traditional IPOs
-8. SPACs, Demystified
-9. Life as a Public Company
-10. Reading an IPO Prospectus
+**Unit 8 — Ratio Analysis I: Profitability & Efficiency**  
+Margins, returns on capital, and turnover ratios.
 
-### Unit 10 — Building a Full Valuation Model · guide: Caishen
-1. Gathering the Inputs
-2. Building the Revenue Model
-3. Building the Cost Model
-4. Projecting the Three Statements Together
-5. Assembling the DCF
-6. Cross-Checking With Comparables
-7. Stress-Testing Your Assumptions
-8. Writing Up Your Valuation Thesis
-9. Presenting a Valuation Like an Analyst
-10. Your First Full Company Valuation
+**Unit 9 — Ratio Analysis II: Liquidity & Solvency**  
+Current ratio, quick ratio, debt ratios, and interest cover.
 
-### Units 11–100 · 🔲 NOT YET PLANNED
-Reserved and wired into the app (`js/lesson-data.js`, `js/sheets-config.js`)
-as empty, locked placeholders — `id`, a numbered stand-in `name`, and a
-guide are already set so nothing needs code changes when it's time to plan
-them. Design each remaining batch of 10 the same way this first set was
-designed: pick the batch's theme, draft 10 lesson titles here in this doc,
-then build lessons unit by unit. Current guide blocks:
+**Unit 10 — Capstone: Diagnosing a Company From Its Filings**  
+Put every statement-reading skill together on one real set of filings.
 
-| Units | Guide |
-|---|---|
-| 2–23 | Plutus |
-| 24–45 | Ebisu |
-| 46–67 | Kubera |
-| 68–89 | Hermes |
-| 90–100 | Caishen (Unit 100 is the capstone) |
+
+## Book II — Statistics & Quantitative Foundations · guide: Plutus
+
+**Unit 11 — Statistics I: Describing Data**  
+Mean, median, mode, and the shape of a distribution.
+
+**Unit 12 — Statistics II: Spread & Variability**  
+Range, variance, and standard deviation, demystified.
+
+**Unit 13 — Probability Foundations**  
+What probability really measures, and how odds are built from it.
+
+**Unit 14 — Expected Value & Decision-Making**  
+Weighing outcomes by their probability to compare choices.
+
+**Unit 15 — Distributions & the Bell Curve**  
+Normal distributions, skew, and what a bell curve tells an investor.
+
+**Unit 16 — Correlation & Causation**  
+When two things move together — and when that means nothing at all.
+
+**Unit 17 — Regression Basics**  
+Fitting a line through data to estimate a relationship.
+
+**Unit 18 — Sampling & Estimation**  
+Why a sample can stand in for a population, and where that breaks down.
+
+**Unit 19 — Hypothesis Testing, Simply**  
+Testing a claim against data without the jargon overload.
+
+**Unit 20 — Capstone: Reading a Research Report's Statistics**  
+Interpret the stats behind a real market or economic research note.
+
+
+## Book III — Comparable Company & Precedent Analysis · guide: Kubera
+
+**Unit 21 — What Is a Comparable Company?**  
+Choosing peers that actually belong in the same conversation.
+
+**Unit 22 — Enterprise Value vs. Equity Value**  
+Two different prices for two different claims on a company.
+
+**Unit 23 — Core Trading Multiples**  
+P/E, EV/EBITDA, and EV/Sales, and when each one fits.
+
+**Unit 24 — Choosing the Right Peer Group**  
+Sector, size, growth, and geography — what makes a peer set fair.
+
+**Unit 25 — Normalizing Earnings**  
+Stripping out one-offs so multiples compare like with like.
+
+**Unit 26 — Precedent Transactions Analysis**  
+Valuing a company against what similar businesses actually sold for.
+
+**Unit 27 — Control Premiums & Synergies**  
+Why buyers pay more than the trading price — and how much more.
+
+**Unit 28 — Building a Comps Table**  
+Assembling peer data into a clean, defensible comparison.
+
+**Unit 29 — Football Fields & Valuation Ranges**  
+Presenting a range of valuation methods on a single chart.
+
+**Unit 30 — Capstone: A Full Comps-Based Valuation**  
+Value a real company using trading comps and precedents together.
+
+
+## Book IV — Discounted Cash Flow & Intrinsic Valuation · guide: Kubera
+
+**Unit 31 — Free Cash Flow, Defined**  
+The cash a business actually generates, after keeping the lights on.
+
+**Unit 32 — Forecasting Revenue**  
+Building a growth story from drivers, not just a trend line.
+
+**Unit 33 — Forecasting Margins & Costs**  
+Projecting the cost side of the business with discipline.
+
+**Unit 34 — Forecasting Capex & Working Capital**  
+The two line items that quietly decide how much cash is left over.
+
+**Unit 35 — The Cost of Equity**  
+What shareholders require to hold the risk of owning the business.
+
+**Unit 36 — WACC: Blending the Cost of Capital**  
+Combining the cost of debt and equity into one discount rate.
+
+**Unit 37 — Terminal Value**  
+Valuing everything after the forecast period ends, in one number.
+
+**Unit 38 — Building a Full DCF Model**  
+Assembling forecasts, discount rate, and terminal value into a valuation.
+
+**Unit 39 — Sensitivity & Scenario Analysis**  
+Testing how much the valuation moves when assumptions change.
+
+**Unit 40 — Capstone: DCF vs. Market Price**  
+Compare your intrinsic value estimate against what the market says today.
+
+
+## Book V — Corporate Finance & Capital Structure · guide: Ebisu
+
+**Unit 41 — Capital Structure Basics**  
+The mix of debt and equity a company chooses to fund itself.
+
+**Unit 42 — The Cost of Debt & Credit Spreads**  
+What lenders charge, and why it varies company to company.
+
+**Unit 43 — Leverage & Financial Risk**  
+How borrowing amplifies both returns and the chance of ruin.
+
+**Unit 44 — Dividend Policy & Buybacks**  
+How companies decide what to do with cash they don't reinvest.
+
+**Unit 45 — Capital Budgeting: NPV & IRR**  
+Deciding which projects are worth funding, with real numbers.
+
+**Unit 46 — Working Capital Management**  
+Managing the cash tied up in receivables, payables, and inventory.
+
+**Unit 47 — Bonds & Credit Ratings, Explained**  
+How debt gets priced, rated, and traded.
+
+**Unit 48 — Convertible & Hybrid Securities**  
+Instruments that blend features of debt and equity.
+
+**Unit 49 — Raising Capital: Debt vs. Equity Markets**  
+Where companies go to raise money, and why they pick one route over another.
+
+**Unit 50 — Capstone: Choosing an Optimal Capital Structure**  
+Recommend a funding mix for a real company scenario.
+
+
+## Book VI — M&A & Deal-Making · guide: Hermes
+
+**Unit 51 — Why Companies Buy Other Companies**  
+The strategic and financial logic behind an acquisition.
+
+**Unit 52 — Strategic vs. Financial Buyers**  
+Two very different reasons to buy the same company.
+
+**Unit 53 — The M&A Process, Step by Step**  
+From first approach to signed deal.
+
+**Unit 54 — Deal Structuring: Cash, Stock, or Both**  
+How the form of payment changes risk for both sides.
+
+**Unit 55 — Accretion / Dilution Analysis**  
+Whether a deal helps or hurts the buyer's earnings per share.
+
+**Unit 56 — Synergies: Real and Imagined**  
+Cost and revenue synergies, and why they're so often overestimated.
+
+**Unit 57 — Due Diligence, Explained**  
+What buyers actually check before signing.
+
+**Unit 58 — Financing an Acquisition**  
+Sources and uses — where the money for a deal comes from.
+
+**Unit 59 — Earnouts, Escrows & Deal Terms**  
+The fine print that allocates risk after the deal closes.
+
+**Unit 60 — Capstone: Modeling an M&A Deal**  
+Build a simple accretion/dilution model for a real-style deal.
+
+
+## Book VII — Leveraged Buyouts & Private Equity · guide: Hermes
+
+**Unit 61 — What Is a Leveraged Buyout?**  
+Buying a company mostly with borrowed money, and why that works.
+
+**Unit 62 — What Makes a Good LBO Candidate**  
+The traits private equity firms look for before they'll bid.
+
+**Unit 63 — Sources & Uses in an LBO**  
+Where the purchase price comes from, and where it goes.
+
+**Unit 64 — Debt Structuring in LBOs**  
+Senior debt, subordinated debt, and how leverage gets layered.
+
+**Unit 65 — Building a Simple LBO Model**  
+Projecting cash flows to pay down acquisition debt over time.
+
+**Unit 66 — Returns Analysis: IRR & MOIC**  
+How private equity firms measure whether a deal actually worked.
+
+**Unit 67 — Exit Strategies for PE Firms**  
+Sale, IPO, or recapitalization — how a fund gets its money back out.
+
+**Unit 68 — Add-On Acquisitions & Roll-Ups**  
+Growing a platform company through smaller follow-on deals.
+
+**Unit 69 — Venture Capital vs. Private Equity**  
+Two very different games played with very different companies.
+
+**Unit 70 — Capstone: A Full LBO Model Walkthrough**  
+Build and interpret a complete LBO model, start to exit.
+
+
+## Book VIII — Capital Markets, IPOs & Debt Issuance · guide: Ebisu
+
+**Unit 71 — Why Companies Go Public**  
+The trade-offs of leaving private ownership behind.
+
+**Unit 72 — The IPO Process, Step by Step**  
+From filing to first day of trading.
+
+**Unit 73 — Underwriters, Roadshows & Book-Building**  
+How an IPO actually gets priced and sold.
+
+**Unit 74 — The IPO Pop, Explained**  
+Why a stock often jumps on day one — and who that favors.
+
+**Unit 75 — Lock-Ups & Life After the IPO**  
+What happens to insiders' shares, and to the stock, after listing.
+
+**Unit 76 — Direct Listings & SPACs**  
+Alternative routes to going public, and how they differ from a classic IPO.
+
+**Unit 77 — Follow-On & Secondary Offerings**  
+How already-public companies raise more equity capital.
+
+**Unit 78 — Debt Capital Markets**  
+How companies issue bonds instead of selling shares.
+
+**Unit 79 — Rating Agencies & the Credit Market**  
+Who rates debt, and how that rating moves its price.
+
+**Unit 80 — Capstone: Reading a Real Prospectus**  
+Pull the key facts out of an actual IPO or bond prospectus.
+
+
+## Book IX — Small Business & Specialized Valuation · guide: Daikokuten
+
+**Unit 81 — Why Small Businesses Value Differently**  
+No public price, thin data, and a very different buyer pool.
+
+**Unit 82 — Seller's Discretionary Earnings**  
+Adjusting a small business's profit to reflect its true earning power.
+
+**Unit 83 — Industry Rules of Thumb**  
+Quick valuation shortcuts used in specific trades — and their limits.
+
+**Unit 84 — Valuing Real Estate**  
+Cap rates, comparable sales, and income approaches to property value.
+
+**Unit 85 — Valuing Banks & Financial Institutions**  
+Why normal valuation tools break down for lenders.
+
+**Unit 86 — Valuing Early-Stage & Pre-Revenue Companies**  
+Estimating worth before there's much to measure yet.
+
+**Unit 87 — Intangible Assets & Brand Value**  
+Putting a number on things you can't touch.
+
+**Unit 88 — Valuing for Disputes: Divorce & Estate Cases**  
+Where valuation meets law, and why the standard of value changes.
+
+**Unit 89 — Discounts for Marketability & Minority Stakes**  
+Why a small, illiquid stake is worth less per share than control.
+
+**Unit 90 — Capstone: A Practical Small-Business Valuation**  
+Walk a real small business from raw numbers to a defensible value.
+
+
+## Book X — IB Practice, Careers, Ethics & Capstone · guide: Caishen
+
+**Unit 91 — How an Investment Bank Is Organized**  
+Front office, middle office, back office — who does what.
+
+**Unit 92 — Life as an Analyst**  
+The day-to-day workflow behind the deals and the decks.
+
+**Unit 93 — Financial Modeling Best Practices**  
+Building models that don't break the moment someone else opens them.
+
+**Unit 94 — Building a Pitch Book**  
+What goes into the deck bankers actually bring to a client meeting.
+
+**Unit 95 — Presenting a Valuation Like an Analyst**  
+Turning a model into a clear, defensible story.
+
+**Unit 96 — Ethics, Conflicts of Interest & Regulation**  
+The rules and pressures that shape how deals get done.
+
+**Unit 97 — Behavioral Biases in Investing**  
+The mental shortcuts that quietly distort financial judgment.
+
+**Unit 98 — ESG & Sustainable Investing Basics**  
+How environmental and social factors enter investment decisions.
+
+**Unit 99 — Macro Context: Rates, Cycles & Markets**  
+How interest rates and the business cycle move every valuation you've built.
+
+**Unit 100 — Capstone: Your First Full Company Valuation**  
+Every earlier lesson, brought together into one complete valuation.
+
 
 ---
 
 ## How to fill in a unit
 
-1. Open `sheets-templates/u{N}-....csv` for the unit — it already has the
-   correct header row and lesson titles are yours to add.
+1. For units 2–10: open the matching `sheets-templates/u{N}-....csv` —
+   it already has the correct header row, named for the unit above.
+   For units 11–100: create that file yourself first (copy the header
+   row from any existing template), named `u{N}-slug-of-the-name.csv`.
 2. Write 3–4 teach (`intro`) cards per lesson (one of them the "key
    phrase" card), then 5–6 `question` rows — mix formats: a scenario,
    a plain definition check, a small calculation, a true/false. See
    `docs/content-pipeline.md` for the exact column meanings.
-3. Import into the matching Google Sheets tab, publish it, drop the URL
-   into `js/sheets-config.js` — or send me the filled-in CSV and I'll
-   wire it into `js/lesson-data.js` directly as the new local fallback.
+3. Point that unit's entry in `js/sheets-config.js` at the file's path
+   (or a published Google Sheet URL — either works), commit, and
+   redeploy — or send me the filled-in CSV and I'll wire it in.
 4. Flip that unit's `locked: false` in `js/lesson-data.js` once at least
    its first lesson is ready, so it appears unlocked on the path.
 
 Ten lessons is a comfortable unit-sized chunk of work — that's the pace
-this roadmap assumes, one unit at a time.
+this roadmap assumes, one unit at a time, book by book.
