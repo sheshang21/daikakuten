@@ -1,4 +1,4 @@
-# Render Blueprint — daikokuten
+# Render Blueprint — tekisei
 # The whole site is static HTML/CSS/JS (no build step, no server, no env
 # vars). Content comes from js/lesson-data.js at rest, optionally overlaid at
 # runtime by CSV_URLS in js/sheets-config.js — both are just files fetched
