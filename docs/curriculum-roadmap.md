@@ -1,13 +1,23 @@
-# Tekisei — the 100-lesson roadmap
+# Tekisei — the 1000-lesson roadmap
 
-10 units × 10 lessons. Unit 1 is fully built (teach cards + questions, live
+100 units × 10 lessons. Unit 1 is fully built (teach cards + questions, live
 in `js/lesson-data.js` and `sheets-templates/u1-*.csv`). Units 2–10 are
 scaffolded (name, description, guide, unlock order all wired into the app)
 but empty — titles below are the plan for filling them in, one unit at a
 time, the same "slowly, slowly" way Unit 1 was built.
 
-Each unit is guided by one deity from the roster; two guides return for a
-second, more advanced unit later on.
+Units 11–100 exist in `js/lesson-data.js` and `js/sheets-config.js` as
+reserved slots (id, a placeholder name, `locked: true`, and a guide already
+assigned) so the app and the roster on `index.html` work at full scale —
+but their actual titles and lessons haven't been planned yet. Plan and
+build them in batches of 10, the same way as Units 1–10 below: pick a
+theme for the batch, write ten lesson titles, then fill in one unit's
+`sheets-templates/u{N}-....csv` at a time.
+
+Each unit is guided by one deity from the roster; with 100 units the six
+guides now each cover a contiguous block instead of just one or two units
+— see the `roster-tag` ranges in `index.html` for the current split
+(editable there any time the plan changes).
 
 ---
 
@@ -119,7 +129,7 @@ second, more advanced unit later on.
 9. Life as a Public Company
 10. Reading an IPO Prospectus
 
-### Unit 10 — Building a Full Valuation Model · guide: Caishen · Capstone
+### Unit 10 — Building a Full Valuation Model · guide: Caishen
 1. Gathering the Inputs
 2. Building the Revenue Model
 3. Building the Cost Model
@@ -130,6 +140,22 @@ second, more advanced unit later on.
 8. Writing Up Your Valuation Thesis
 9. Presenting a Valuation Like an Analyst
 10. Your First Full Company Valuation
+
+### Units 11–100 · 🔲 NOT YET PLANNED
+Reserved and wired into the app (`js/lesson-data.js`, `js/sheets-config.js`)
+as empty, locked placeholders — `id`, a numbered stand-in `name`, and a
+guide are already set so nothing needs code changes when it's time to plan
+them. Design each remaining batch of 10 the same way this first set was
+designed: pick the batch's theme, draft 10 lesson titles here in this doc,
+then build lessons unit by unit. Current guide blocks:
+
+| Units | Guide |
+|---|---|
+| 2–23 | Plutus |
+| 24–45 | Ebisu |
+| 46–67 | Kubera |
+| 68–89 | Hermes |
+| 90–100 | Caishen (Unit 100 is the capstone) |
 
 ---
 

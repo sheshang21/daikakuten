@@ -7,7 +7,7 @@ lessons already bundled in `js/lesson-data.js`. Nothing breaks either way.
 
 ## 1. The column layout
 
-One Google Sheet, one **tab per unit** (`u1` … `u10`). Each tab is a flat
+One Google Sheet, one **tab per unit** (`u1` … `u100`). Each tab is a flat
 table — row 1 is a header (for your own reference; the loader ignores the
 text and just uses column position), and every row from row 2 down is either
 a **teach card** or a **question**:
@@ -35,14 +35,18 @@ two options filled in (columns G and H left blank).
 
 **Ready-made example:** `sheets-templates/u1-the-basics-of-value.csv` is the
 actual, live Unit 1 content (10 lessons, 83 rows) exported in exactly this
-format — the easiest way to see the pattern is to open it. The other nine
-files in that folder are empty (header row only), one per future unit,
-ready for you to fill in.
+format — the easiest way to see the pattern is to open it. `sheets-templates/`
+also has one blank template (header row only) for each of Units 2–10. Units
+11–100 don't have a template file yet — when you're ready to plan one of
+those, copy `sheets-templates/u2-....csv`'s header row into a new
+`u{N}-....csv` file, or duplicate the `u2` tab directly in Google Sheets.
 
 ## 2. Setting it up in Google Sheets
 
-1. Create a new Google Sheet. Rename the first tab `u1`, and add tabs `u2`
-   through `u10` (Sheets → right-click a tab → Duplicate, then rename).
+1. Create a new Google Sheet. Rename the first tab `u1`, and add a `u{N}`
+   tab for each unit as you plan it (Sheets → right-click a tab →
+   Duplicate, then rename) — you don't need all 100 tabs up front, just
+   the ones you're actively writing.
 2. Import each CSV from `sheets-templates/` into its matching tab:
    File → Import → Upload → pick the CSV → **Insert new sheet** or
    **Replace current sheet**, whichever tab you're filling.
