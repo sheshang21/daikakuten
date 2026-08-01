@@ -1,4 +1,4 @@
-# Daikokuten — the 100-lesson roadmap
+# Tekisei — the 100-lesson roadmap
 
 10 units × 10 lessons. Unit 1 is fully built (teach cards + questions, live
 in `js/lesson-data.js` and `sheets-templates/u1-*.csv`). Units 2–10 are

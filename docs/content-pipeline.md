@@ -1,4 +1,4 @@
-# Daikokuten content pipeline — editing lessons without touching code
+# Tekisei content pipeline — editing lessons without touching code
 
 Every lesson (teach cards + questions) can live in a Google Sheet instead of
 in `js/lesson-data.js`. The site checks Sheets first; if a unit has no sheet
