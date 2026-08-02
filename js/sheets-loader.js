@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------
-   DAIKOKUTEN — dynamic content loader (Google Sheets → COURSE)
+   TEKISEI — dynamic content loader (Google Sheets → COURSE)
 
    Column layout expected in each unit's published CSV, from row 2
    (row 1 is a header row, for your own reference — content ignores it):
@@ -111,10 +111,13 @@ async function loadCourseData(){
           if(unit){
             unit.lessons = lessons;
             unit.locked = false; // content arrived — no manual code edit needed to unlock it
+            console.info(`[Tekisei] Unit "${unitId}" loaded ${lessons.length} lesson(s) from Sheets.`);
           }
+        }else{
+          console.warn(`[Tekisei] Unit "${unitId}" sheet returned no usable lessons — using local fallback.`);
         }
       }catch(err){
-        console.warn(`[Daikokuten] Could not load Sheets content for unit "${unitId}" — using local fallback. (${err.message})`);
+        console.warn(`[Tekisei] Could not load Sheets content for unit "${unitId}" — using local fallback. (${err.message})`);
       }
     });
   await Promise.all(jobs);
