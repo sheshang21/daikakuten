@@ -46,7 +46,7 @@ const CSV_URLS = {
   u8:    "sheets-templates/u8-ratio-analysis-i-profitability-efficiency.csv",   // Ratio Analysis I: Profitability & Efficiency
   u9:    "sheets-templates/u9-ratio-analysis-ii-liquidity-solvency.csv",   // Ratio Analysis II: Liquidity & Solvency
   u10:   "sheets-templates/u10-capstone-diagnosing-a-company-from-its-filings.csv",   // Capstone: Diagnosing a Company From Its Filings
-  u11:   null,   // Statistics I: Describing Data
+  u11:   "sheets-templates/u11-statistics-i-describing-data.csv",   // Statistics I: Describing Data
   u12:   null,   // Statistics II: Spread & Variability
   u13:   null,   // Probability Foundations
   u14:   null,   // Expected Value & Decision-Making

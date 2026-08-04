@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------
-   DAIKOKUTEN — renders the learning path from COURSE + state
+   TEKISEI — renders the learning path from COURSE + state
 --------------------------------------------------------- */
 (function(){
   function touchStreakIfReturning(s){
@@ -144,22 +144,59 @@
       : "You've cleared a lot of ground. Keep going \u2014 more is on the way.";
   }
 
-  function renderPath(state){
+  function getBooks(){
+    const seen = [];
+    COURSE.units.forEach(u => { if(!seen.includes(u.book)) seen.push(u.book); });
+    return seen;
+  }
+
+  // The single next not-yet-done lesson, course-wide (regardless of which
+  // book is currently being viewed) — gets a pulsing "start here" hint when
+  // its book happens to be the one on screen. A suggestion, not a gate:
+  // every lesson in every content-unlocked unit is reachable directly.
+  function findNextSuggestedLessonId(state){
+    for(const unit of COURSE.units){
+      if(unit.locked) continue;
+      for(const lesson of unit.lessons){
+        if(!state.completed[lesson.id]) return lesson.id;
+      }
+    }
+    return null;
+  }
+
+  // Which book should be shown by default: the one containing the next
+  // suggested lesson, falling back to the first unlocked unit's book, then
+  // simply the first book of all.
+  function defaultBook(state){
+    const nextId = findNextSuggestedLessonId(state);
+    if(nextId){
+      const unit = COURSE.units.find(u => !u.locked && u.lessons.some(l => l.id === nextId));
+      if(unit) return unit.book;
+    }
+    const firstUnlocked = COURSE.units.find(u => !u.locked);
+    if(firstUnlocked) return firstUnlocked.book;
+    return getBooks()[0];
+  }
+
+  function renderPath(state, book){
     const root = document.getElementById('pathRoot');
     let html = `<div class="path-header"><span class="eyebrow">The path of prosperity</span></div>`;
 
-    // determine global unlock cursor across unlocked units, in order
-    let unlockedReached = false;
-    let previousUnitName = null;
+    const nextSuggestedId = findNextSuggestedLessonId(state);
+    const firstUnlockedUnitId = (COURSE.units.find(u => !u.locked) || {}).id;
     const ART_AVAILABLE = new Set(Object.keys(GUIDE_ART)); // guides without a portrait yet fall back to a text line
 
-    COURSE.units.forEach(unit => {
+    const unitsInBook = COURSE.units.filter(u => u.book === book);
+    const startIdx = COURSE.units.findIndex(u => u.book === book);
+    let previousUnitName = startIdx > 0 ? COURSE.units[startIdx - 1].name : null;
+
+    unitsInBook.forEach(unit => {
       if(unit.locked){
         const unlockLine = previousUnitName
           ? `Opens once ${previousUnitName} is complete`
           : `Opens later`;
         html += `
-          <div class="unit-locked-card">
+          <div class="unit-locked-card" id="unit-${unit.id}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
             <h3 style="font-family:var(--font-display); font-weight:400; font-size:1.2rem; margin-bottom:6px;">${unit.name}</h3>
             <p style="font-size:0.9rem;">${unit.desc}</p>
@@ -170,11 +207,11 @@
       }
 
       html += `
-        <div class="unit-banner">
+        <div class="unit-banner" id="unit-${unit.id}">
           <div><div class="unit-name">${unit.name}</div><div class="unit-desc">${unit.desc}</div></div>
         </div>`;
 
-      const isFirstUnlockedUnit = !unlockedReached;
+      const isFirstUnlockedUnit = unit.id === firstUnlockedUnitId;
       if(ART_AVAILABLE.has(unit.guide)){
         const nextLockedUnit = COURSE.units.find(u => u.locked);
         html += `${GUIDE_ART[unit.guide]}<div class="guide-bubble">${guideTip(state, isFirstUnlockedUnit, nextLockedUnit ? nextLockedUnit.guide : null)}</div>`;
@@ -186,18 +223,14 @@
       const alignPattern = ['align-c','align-r','align-c','align-l'];
       unit.lessons.forEach((lesson, i) => {
         const done = state.completed[lesson.id];
-        let cls = 'locked';
-        if(done){ cls = 'done'; }
-        else if(!unlockedReached){ cls = 'current'; unlockedReached = true; }
-        const outOfEnergy = cls === 'current' && !hasEnergy(state);
+        let cls = done ? 'done' : (lesson.id === nextSuggestedId ? 'current' : '');
+        const outOfEnergy = cls.includes('current') && !hasEnergy(state);
         if(outOfEnergy) cls += ' no-energy';
         const align = alignPattern[i % alignPattern.length];
         const iconMarkup = done
           ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
-          : (cls === 'locked'
-              ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>'
-              : svgIcon(lesson.icon));
-        const href = (cls === 'locked' || outOfEnergy) ? '#' : `lesson.html?lesson=${lesson.id}`;
+          : svgIcon(lesson.icon);
+        const href = outOfEnergy ? '#' : `lesson.html?lesson=${lesson.id}`;
         const title = outOfEnergy ? `Out of energy \u2014 refills in ${formatDuration(msUntilNextEnergy(state))}` : lesson.title;
         html += `
           <div class="node-row ${align}">
@@ -215,11 +248,44 @@
     root.innerHTML = html;
   }
 
+  function populateUnitSelect(book){
+    const unitSelect = document.getElementById('unitSelect');
+    const units = COURSE.units.filter(u => u.book === book);
+    unitSelect.innerHTML = units.map(u =>
+      `<option value="${u.id}">${u.name}${u.locked ? ' (not yet open)' : ''}</option>`
+    ).join('');
+  }
+
+  function setupNav(state){
+    const bookSelect = document.getElementById('bookSelect');
+    const unitSelect = document.getElementById('unitSelect');
+    const books = getBooks();
+    bookSelect.innerHTML = books.map(b => `<option value="${b}">${b}</option>`).join('');
+
+    let currentBook = defaultBook(state);
+    bookSelect.value = currentBook;
+    populateUnitSelect(currentBook);
+
+    bookSelect.addEventListener('change', () => {
+      currentBook = bookSelect.value;
+      populateUnitSelect(currentBook);
+      renderPath(state, currentBook);
+      document.getElementById('pathRoot').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    unitSelect.addEventListener('change', () => {
+      const el = document.getElementById('unit-' + unitSelect.value);
+      if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    renderPath(state, currentBook);
+  }
+
   loadCourseData().then(() => {
     const state = touchStreakIfReturning(loadState());
     syncEnergy(state);
     saveState(state);
     renderDashStats(state);
-    renderPath(state);
+    setupNav(state);
   });
 })();
