@@ -410,6 +410,40 @@ ul{ margin:0; padding:0; list-style:none; }
    LEARNING PATH (map)
 --------------------------------------------------------- */
 .path-wrap{ padding:44px 0 100px; }
+
+.path-nav{
+  display:flex; gap:16px; flex-wrap:wrap;
+  align-items:flex-end;
+  margin-bottom:32px;
+  padding:16px 20px;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:var(--radius-m);
+  box-shadow:var(--shadow-soft);
+}
+.path-nav-field{
+  display:flex; flex-direction:column; gap:4px;
+  flex:1 1 200px;
+}
+.path-nav-label{
+  font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.06em;
+  text-transform:uppercase; color:var(--ink-faint);
+}
+.path-nav select{
+  font-family:var(--font-body); font-size:0.92rem; color:var(--ink);
+  padding:10px 14px;
+  border:1px solid var(--line);
+  border-radius:var(--radius-s);
+  background:var(--cream) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B503F' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 12px center/16px;
+  appearance:none; -webkit-appearance:none;
+  cursor:pointer;
+}
+.path-nav select:focus{ outline:2px solid var(--gold); outline-offset:1px; }
+.path-nav select:disabled{ opacity:0.5; cursor:not-allowed; }
+@media (max-width:640px){
+  .path-nav{ flex-direction:column; align-items:stretch; }
+}
+
 .path-header{ text-align:center; margin-bottom:8px; }
 .path-header .eyebrow{ }
 .unit-banner{
