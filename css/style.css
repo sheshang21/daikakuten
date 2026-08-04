@@ -420,6 +420,7 @@ ul{ margin:0; padding:0; list-style:none; }
   border:1px solid var(--line);
   border-radius:var(--radius-m);
   box-shadow:var(--shadow-soft);
+  position:sticky; top:72px; z-index:40;
 }
 .path-nav-field{
   display:flex; flex-direction:column; gap:4px;
